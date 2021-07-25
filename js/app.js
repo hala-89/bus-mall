@@ -15,7 +15,7 @@ console.log(showResultsButton);
 
 console.log(leftImageElement, rightImageElement, centerImageElement);
 
-let maxAttempts = 5;
+let maxAttempts = 10;
 let userAttemptsCounter = 0;
 
 let leftImageIndex;
