@@ -17,14 +17,16 @@ footer{
     height: 10%;
     text-align: center;
     font-size: x-large;
-
+    font-family: 'Raleway', sans-serif;
 }
 
  p {
     text-align: center;
-    font-size: large;
+    font-size:xx-large ;
     color:chocolate;
      padding: 25%;
+     font-family: 'Raleway', sans-serif;
+     
  }
 
 
@@ -35,16 +37,17 @@ footer{
 text-align: center;
 font-size: x-large;
 color: darkcyan;
+ font-family: 'Raleway', sans-serif;
 
 }
 
 #showResults{
 width: 175px;
 height: 55px;
-border-radius: 25px;
-margin-left: 35%;
+border-radius: 30px;
+margin-left: 50%;
 color: crimson;
 font-size: x-large;
-margin-top: 75px;
+margin-top: 50px;
 }
 
