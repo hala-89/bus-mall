@@ -2,20 +2,22 @@
 'use strict';
 
 
-let productsImage = document.getElementById('imgesDiv');
+let imageDiv = document.getElementById('imgesDiv');
 
+let showResultsButton = document.getElementById('showResults');
+//console.log(showResultsButton);
 
 let leftImageElement = document.getElementById('left-image');
-console.log(leftImageElement);
+
 let centerImageElement = document.getElementById('center-image');
 
 let rightImageElement = document.getElementById('right-image');
-let showResultsButton=document.getElementById('showResults');
-console.log(showResultsButton);
 
-console.log(leftImageElement, rightImageElement, centerImageElement);
+
+//console.log(leftImageElement, rightImageElement, centerImageElement);
 
 let maxAttempts = 10;
+
 let userAttemptsCounter = 0;
 
 let leftImageIndex;
@@ -28,11 +30,11 @@ function Products(name, imgPath) {
     this.imgPath = imgPath;
     this.votes = 0;
     this.shown = 0;
-    products.push(this);
+    Products.allProducts.push(this);
 
 }
 
-let products = [];
+Products.allProducts = [];
 
 new Products('bag', 'img/bag.jpg');
 new Products('banana', 'img/banana.jpg');
@@ -54,13 +56,13 @@ new Products('unicorn', 'img/unicorn.jpg');
 new Products('water-can', 'img/water-can.jpg');
 new Products('wine-glass', 'img/wine-glass.jpg');
 
-console.log(products);
+//console.log(products);
 
 //from lab11 Demo 
 
 function getRandomIndex() {
 
-    return Math.floor(Math.random() * products.length);
+    return Math.floor(Math.random() * Products.allProducts.length);
 }
 
 console.log(getRandomIndex());
@@ -77,70 +79,89 @@ function renderThreeRandmImages() {
         leftImageIndex = getRandomIndex();
         rightImageIndex = getRandomIndex();
     }
-    console.log(products[leftImageIndex].name);
-    console.log(products[centerImageIndex].name);
-    console.log(products[rightImageIndex].name);
-    console.log(leftImageElement);
-    leftImageElement.src = products[leftImageIndex].imgPath;
-    centerImageElement.src = products[centerImageIndex].imgPath;
-    rightImageElement.src = products[rightImageIndex].imgPath;
+    //console.log(products[leftImageIndex].name);
+    //console.log(products[centerImageIndex].name);
+    //console.log(products[rightImageIndex].name);
+    //console.log(leftImageElement);
 
-    products[leftImageIndex].shown++;
-    products[centerImageIndex].shown++;
-    products[rightImageIndex].shown++;
+
+    leftImageElement.src = Products.allProducts[leftImageIndex].imgPath;
+    Products.allProducts[leftImageIndex].shown++;
+
+    centerImageElement.src = Products.allProducts[centerImageIndex].imgPath;
+    Products.allProducts[centerImageIndex].shown++;
+
+    rightImageElement.src = Products.allProducts[rightImageIndex].imgPath;
+    Products.allProducts[rightImageIndex].shown++;
 }
 
 renderThreeRandmImages();
 
 //add handle click
-leftImageElement.addEventListener('click', handleUserClick);
-centerImageElement.addEventListener('click', handleUserClick);
-rightImageElement.addEventListener('click', handleUserClick);
-let imagesDiv = document.getElementById('imagesDiv');
+
+
+
 imagesDiv.addEventListener('click', handleUserClick);
 
 
 
+
 function handleUserClick(event) {
-  
+
     if (userAttemptsCounter < maxAttempts) {
-        renderThreeRandmImages();
+
         if (event.target.id === 'left-image') {
-            userAttemptsCounter++;
-            products[leftImageIndex].votes++;
-        
-            // console.log(products[leftImageIndex]);
+              userAttemptsCounter++;
+            Products.allProducts[leftImageIndex].votes++;
+         renderThreeRandmImages();
         }
         else if
             (event.target.id === 'center-image') {
-            userAttemptsCounter++;
-            products[centerImageIndex].votes++;
-            //  console.log(products[centerImageIndex]);
-
+          userAttemptsCounter++;
+            Products.allProducts[centerImageIndex].votes++;
+            //  console.log(Products.allProducts[centerImageIndex]);
+            renderThreeRandmImages();
         } else if (event.target.id === 'right-image') {
-            userAttemptsCounter++;
-            products[rightImageIndex].votes++;
-            //console.log(products[rightImageIndex]);
+      userAttemptsCounter++;
+            Products.allProducts[rightImageIndex].votes++;
+            renderThreeRandmImages();
         }
-      }  else {
 
-            imagesDiv.removeEventListener('click', handleUserClick);
+    }
+        else {
+
+            showResultsButton.hidden = false;
+
+
             showResultsButton.addEventListener('click', showResults);
 
+
+            imagesDiv.removeEventListener('click', handleUserClick);
+
+
+                }
+
+            
+
+
+
         }
 
 
-    }
 
-function showResults(){
+    
+    function showResults() {
 
 
-    let list = document.getElementById('results-list');
-    for (let i = 0; i < products.length; i++) {
+        let list = document.getElementById('results-list');
+        for (let i = 0; i < Products.allProducts.length; i++) {
 
-        let listItem = document.createElement('li');
-        list.appendChild(listItem);
-        listItem.textContent = `${products[i].name}  had ${products[i].votes} ,and was seen ${products[i].shown} times .`;
+            let listItem = document.createElement('li');
+            list.appendChild(listItem);
+            listItem.textContent = `${Products.allProducts[i].name}  had ${Products.allProducts[i].votes} ,and was seen ${Products.allProducts[i].shown} times .`;
 
-    }
-}
+        }
+
+
+        showResultsButton.removeEventListener('click', showResults);
+            }
