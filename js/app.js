@@ -16,7 +16,7 @@ let rightImageElement = document.getElementById('right-image');
 
 //console.log(leftImageElement, rightImageElement, centerImageElement);
 
-let maxAttempts = 10;
+let maxAttempts = 25;
 
 let userAttemptsCounter = 0;
 
@@ -50,7 +50,7 @@ new Products('pen', 'img/pen.jpg');
 new Products('pet-sweep', 'img/pet-sweep.jpg');
 new Products('scissors', 'img/scissors.jpg');
 new Products('shark', 'img/shark.jpg');
-new Products('sweep', 'img/sweep.jpg');
+new Products('sweep', 'img/sweep.png');
 new Products('tauntaun', 'img/tauntaun.jpg');
 new Products('unicorn', 'img/unicorn.jpg');
 new Products('water-can', 'img/water-can.jpg');
