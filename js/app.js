@@ -2,6 +2,7 @@
 'use strict';
 
 
+
 let imageDiv = document.getElementById('imgesDiv');
 
 let showResultsButton = document.getElementById('showResults');
@@ -16,13 +17,18 @@ let rightImageElement = document.getElementById('right-image');
 
 //console.log(leftImageElement, rightImageElement, centerImageElement);
 
-let maxAttempts = 10;
+let maxAttempts = 25;
 
 let userAttemptsCounter = 0;
 
 let leftImageIndex;
 let centerImageIndex;
 let rightImageIndex;
+
+let nameArr=[];
+
+let votesArr=[];
+let shwonArr=[];
 
 function Products(name, imgPath) {
 
@@ -31,7 +37,7 @@ function Products(name, imgPath) {
     this.votes = 0;
     this.shown = 0;
     Products.allProducts.push(this);
-
+    nameArr.push(this.name);
 }
 
 Products.allProducts = [];
@@ -50,7 +56,7 @@ new Products('pen', 'img/pen.jpg');
 new Products('pet-sweep', 'img/pet-sweep.jpg');
 new Products('scissors', 'img/scissors.jpg');
 new Products('shark', 'img/shark.jpg');
-new Products('sweep', 'img/sweep.jpg');
+new Products('sweep', 'img/sweep.png');
 new Products('tauntaun', 'img/tauntaun.jpg');
 new Products('unicorn', 'img/unicorn.jpg');
 new Products('water-can', 'img/water-can.jpg');
@@ -67,13 +73,22 @@ function getRandomIndex() {
 
 console.log(getRandomIndex());
 
+
+
+ let pic1; 
+ let pic2; 
+ let pic3;
+
 function renderThreeRandmImages() {
+    pic1=leftImageIndex;
+    pic2=centerImageIndex;
+    pic3=rightImageIndex;
 
     leftImageIndex = getRandomIndex();
     centerImageIndex = getRandomIndex();
     rightImageIndex = getRandomIndex();
 
-    while (leftImageIndex === centerImageIndex || leftImageIndex === rightImageIndex || rightImageIndex === centerImageIndex) {
+    while (leftImageIndex === centerImageIndex || leftImageIndex === rightImageIndex || rightImageIndex === centerImageIndex || leftImageIndex===pic1 ||leftImageIndex===pic2 ||leftImageIndex===pic3 ||centerImageIndex===pic1 ||centerImageIndex===pic2 ||centerImageIndex===pic3 ||rightImageIndex===pic1 ||rightImageIndex===pic2 ||rightImageIndex===pic3) {
 
         centerImageIndex = getRandomIndex();
         leftImageIndex = getRandomIndex();
@@ -138,7 +153,7 @@ function handleUserClick(event) {
 
             imagesDiv.removeEventListener('click', handleUserClick);
 
-
+             showChart();
                 }
 
             
@@ -164,4 +179,95 @@ function handleUserClick(event) {
 
 
         showResultsButton.removeEventListener('click', showResults);
+
+
             }
+
+            
+
+///// for dome lab 
+
+  function showChart() {
+
+
+    for( let i=0; i<Products.allProducts.length;i++){
+
+        console.log(Products.allProducts[i].votes);
+        votesArr.push(Products.allProducts[i].votes);
+        shwonArr.push(Products.allProducts[i].shown);
+        }
+
+
+    const data = {
+      labels: nameArr,
+      datasets: [{
+        label: 'Votes',
+        data: votesArr,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: 'Shown',
+        data:  shwonArr,
+        
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }
+    
+    ]
+    };
+  
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+  
+  
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  
+    }
+    
