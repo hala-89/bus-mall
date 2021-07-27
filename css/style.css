@@ -32,13 +32,13 @@ footer{
 
 
 
-#resultsList{
+.resultsList{
 
 text-align: center;
 font-size: x-large;
 color: darkcyan;
  font-family: 'Raleway', sans-serif;
-
+margin-top: 50px;
 }
 
 #showResults{
@@ -49,5 +49,6 @@ margin-left: 50%;
 color: crimson;
 font-size: x-large;
 margin-top: 50px;
+font-family:'Raleway', sans-serif;
 }
 
